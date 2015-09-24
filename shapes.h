@@ -7,3 +7,13 @@
   /**
    * A short program to print "Hello World!" to standard output.
    */
+#ifndef SHAPES_H
+#define SHAPES_H
+  // ----------------------------------------------------------------------------
+#include <iostream>
+using std::cout;
+using std::endl;
+
+  // ----------------------------------------------------------------------------
+
+#endif  // SHAPES_H

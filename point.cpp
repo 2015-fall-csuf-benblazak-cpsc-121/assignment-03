@@ -10,16 +10,4 @@
 
 #include "point.h"
 
-class point{
-	private:
-		double x, y;
-	public:
-		point () { x = 0,y = 0;}
-		point (double a, double b) : x(a), y(b) {}
-		double getX(){
-			return x;
-		}
-		double getY(){
-			return y;
-		}
-};
+

@@ -21,21 +21,11 @@
               getters (but not setters) for each.
 
     - `Shape`
-        - Must contain the following pure virtual function:
+        - Must contain at least the following pure virtual function:
 
             ```c++
             virtual bool contains(const Point & p) const = 0;
             ```
-
-        - Should also contain a virtual default destructor:
-
-            ```c++
-            virtual ~Shape() {}
-            ```
-
-          This allowes for child classes being handled through a pointer of
-          type `Shape` to have their destructors called when the variable goes
-          out of scope or is `delete`d (search "cpp polymorphism").
 
     - `Rectangle` and `Ellipse`
         - Must inherit from `Shape`, and be concrete classes (i.e. not abstract
@@ -78,7 +68,7 @@
   character in that column, and similarly for the number of lines and the
   factor used to convert the line number to the corresponding y value.
 
-  Optionally, you may also draw a border, where the top and bottom of each
+  Optionally, you may also draw a boarder, where the top and bottom of each
   column is a `"-"` (or something), and the first and last character of each
   line is a `"|"` (or something).
 

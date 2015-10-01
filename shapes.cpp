@@ -1,37 +1,20 @@
-/* ----------------------------------------------------------------------------
- * Copyright &copy; 2015 Ben Blazak <bblazak@fullerton.edu>
- * Released under the [MIT License] (http://opensource.org/licenses/MIT)
- * ------------------------------------------------------------------------- */
-
-#include <cmath>
-using std::abs;
-
+#include "point.h"
 #include "shapes.h"
 
-// ----------------------------------------------------------------------------
+Rectangle::Rectangle(Point corner, int length, int width) : corner(corner), length(length), width(width) {}
 
-Rectangle::Rectangle(Point center, float dx, float dy) : center(center),
-                                                         dx(dx),
-                                                         dy(dy) {}
+bool Rectangle::constains(const Point & p) const{
 
-bool Rectangle::contains(const Point & p) const {
-    return    abs( p.getX() - center.getX() ) <= dx
-           && abs( p.getY() - center.getY() ) <= dy;
+	if ((p.getX() >= corner.getX()) && p.getX() <= (corner.getX() + length)
+		&& (p.getY() >= corner.getY() && p.getY()) <= (corner.getY() + width))
+
+		return true;
+
+	else
+
+		return false;
 }
 
-Square::Square(Point center, float side)
-    : Rectangle(center, side/2, side/2) {}
+Rectangle::~Rectangle(){
 
-// ----------------------------------------------------------------------------
-
-Ellipse::Ellipse(Point f1, Point f2, float radius) : f1(f1),
-                                                     f2(f2),
-                                                     radius(radius) {}
-
-bool Ellipse::contains(const Point & p) const {
-    return p.distance(f1) + p.distance(f2) <= radius;
 }
-
-Circle::Circle(Point center, float radius)
-    : Ellipse(center, center, radius) {}
-

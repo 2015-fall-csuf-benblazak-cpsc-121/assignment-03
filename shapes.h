@@ -1,6 +1,7 @@
 /* ----------------------------------------------------------------------------
  * Copyright &copy; 2015 James Mabe <jamespmabe@gmail.com>
  * Released under the [MIT License] (http://opensource.org/licenses/MIT)
+ * References: Ben Blazak.
  * ------------------------------------------------------------------------- */
 
 /**

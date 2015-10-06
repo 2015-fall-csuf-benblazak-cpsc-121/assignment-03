@@ -1,47 +1,26 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 
-class Shape{
-
+class Shapes{
 public:
-	virtual bool contains(const Point& p) const = 0;
-	virtual ~Shape(){}
-
-
-protected:
-	int width;
-	int height;
-
+	virtual bool contains(const Point &p) const = 0;
+	virtual ~Shapes(){}
 };
 
-class Rectangle : public Shape{
-
+class Ellipse : public Shapes{
 public:
-	Rectangle(){
-		width = 25;
-		height = 10;
-	}
-
-
-};
-
-class Ellipse : public Shape{
-
-
-};
-
-class Square : public Rectangle{
-public:
-	Square(){
-		width = 20;
-		height = 20;
-	}
-
+	Ellipse(Point F1 = 0, Point F2 = 0, float dis_focal_to_edge = 0);
+	bool contains(const Point &p) const;
+private:
+	Point F1;
+	Point F2;
+	float dis_focal_to_edge;
 };
 
 class Circle : public Ellipse{
-
-
+public:
+	Circle(Point center = 0, float radius = 0);
+ 
 };
 
 #endif 

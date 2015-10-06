@@ -1,23 +1,13 @@
-#ifndef
+#include "shapes.h"
 
-class Shapes{
-public:
-	virtual bool contains(const Point &p) const = 0;
-	virtual ~Shapes(){}
-};
+Ellipse::Ellipse(Point Focal1, Point Focal2, float distance_focal_to_edge){
+	F1 = Focal1;
+	F2 = Focal2;
+	dis_focal_to_edge = distance_focal_to_edge;
+}
 
-class Ellipse : public Shapes{
-public:
-	Ellipse(Point F1 = 0, Point F2 = 0, float dis_focal_to_edge = 0);
-	bool contains(const Point &p) const;
-private:
-	Point F1;
-	Point F2;
-	float dis_focal_to_edge;
-};
+bool Ellipse::contains(const Point &p) const {
+	return p.calc_distance(F1) + p.calc_distance(F2) <= dis_focal_to_edge;
+}
 
-class Circle : public Ellipse{
-public:
-	Circle(Point center = 0, float radius = 0);
- 
-};
+Circle::Circle(Point center, float radius) : Ellipse(center, center, radius){}

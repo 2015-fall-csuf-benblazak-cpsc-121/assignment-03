@@ -2,18 +2,16 @@
 #define POINT_H
 
 class Point{
-
 public:
-	//Default constructor to initiate (x,y) = (0,0)
-	Point(){ x = 0; y = 0; }
-
-	//This function to get points from shape
-	void get_point(float, float);
-
-
+	Point(float X = 0, float Y = 0); //constructor
+	float getX() const;
+	float getY() const;
+	float calc_distance(const Point &a) const;
+	~Point(){};
 private:
-	float x;
-	float y;
+	float X;
+	float Y;
 };
+
 
 #endif 

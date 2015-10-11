@@ -1,22 +1,28 @@
 /* ----------------------------------------------------------------------------
- * Copyright &copy; 2015 Ben Blazak <bblazak@fullerton.edu>
+ * Copyright &copy; 2015 Matthew Kang <matthesk@fullerton.edu>
  * Released under the [MIT License] (http://opensource.org/licenses/MIT)
  * ------------------------------------------------------------------------- */
 
+#include "Point.h"
 #include <cmath>
-using std::pow;
-using std::sqrt;
 
-#include "point.h"
-
-// ----------------------------------------------------------------------------
-
-Point::Point(float x, float y) : x(x), y(y) {}
-
-float Point::getX() const { return x; }
-float Point::getY() const { return y; }
-
-float Point::distance(const Point & a) const {
-    return sqrt( pow( a.x - this->x, 2 ) + pow( a.y - this->y, 2 ) );
+Point::Point(double xValue, double yValue) {
+	x = xValue;
+	y = yValue;
 }
 
+
+
+double Point::distance(const Point & endpoint) const {
+	double result;
+	double x1 = x;
+	double y1 = y;
+
+	double x2 = endpoint.getX();
+	double y2 = endpoint.getY();
+
+	result = sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
+	return result;
+
+
+}

@@ -1,99 +1,95 @@
 /* ----------------------------------------------------------------------------
- * Copyright &copy; 2015 Ben Blazak <bblazak@fullerton.edu>
+ * Copyright &copy; 2015 Matthew Low <bblazak@fullerton.edu>
  * Released under the [MIT License] (http://opensource.org/licenses/MIT)
  * ------------------------------------------------------------------------- */
 
-/**
- * Program to animate some basic shapes moving across the screen in the
- * terminal.
- */
+/* This program uses classes and pointers to calculate the surface area and 
+volume of serveral cylinders
+*/
 
-#include <chrono>
-#include <thread>
+#include "FCylinder.h"
 
-#include <iostream>
-using std::cin;
-using std::cout;
-using std::endl;
+void class_area();
 
-#include "point.h"
-#include "shapes.h"
-
-// ----------------------------------------------------------------------------
-
-/**
- * A function to draw the `Shape`s in `s` in a terminal.
- *
- * Arguments:
- * - `count`: The number of `Shape`s in `s`.
- * - `s`: An array containing pointers to each `Shape` to draw.
- *
- * Notes:
- * - A terminal window is typically 80 columns wide by 25 lines high.
- * - The width:height aspect ratio of a terminal character is approximately
- *   1:1.9.
- */
-void draw(const int count, const Shape * const s[]) {
-    const float xPixels = 80;
-    const float yPixels = 25;
-
-    const float xScale = 1;
-    const float yScale = 1.9;
-
-    for (float yp = 0; yp < yPixels; yp++) {
-        float y = yp * yScale;
-
-        for (float xp = 0; xp < xPixels; xp++) {
-            float x = xp * xScale;
-
-            if (yp == 0 || yp == yPixels-1) {
-                cout << "-";
-                continue;
-            }
-
-            if (xp == 0 || xp == xPixels-1) {
-                cout << "|";
-                continue;
-            }
-
-            bool includePoint = false;
-            for (int c = 0; c < count; c++)
-                if (s[c]->contains(Point(x,y)))
-                    includePoint = true;
-
-            if (includePoint)
-                cout << "*";
-            else
-                cout << " ";
-        }
-        cout << endl;
-    }
+int main(){
+	cout << "        Start of program" << endl;
+	cout << "--------------------------------" << endl;
+	
+	//function made solely to show when the deconstructor is called
+	class_area();
+	cout << endl << "--------------------------------" << endl;
+	
+	//custom exit prompt
+	cout << "End of program. Press ENTER to continue." << endl;
+	cin.ignore(1000, '\n');	
+return 0;
 }
 
-// ----------------------------------------------------------------------------
+void class_area(){	
+	FCylinder first_cyl;             //default constructor
+	FCylinder *pointfc = &first_cyl; // substituted a pointer for first_cyl 
+	FCylinder second_cyl(7.5, 4.0);  //overloaded constructor
+	FCylinder third_cyl(*pointfc);  //copy constructor with substituted pointer
 
-int main() {
-    const int frames = 40;
-    const int frameSleep = 70;  // milliseconds
-
-    // for each frame
-    for (float f = 0; f < frames; f++) {
-        // create some shapes
-        Rectangle r( Point(5+f,5), 2, 8 );
-        Square    s( Point(50-(f/2),5+(f/2)), 7 );
-        Ellipse   e( Point(10-(f/3),35+(f/3)), Point(25-(f/3),35+(f/3)), 22+f );
-        Circle    c( Point(50+(f/5),35), 15 );
-
-        // put pointers to them in an array
-        Shape * shapes[] = { &r, &s, &e, &c, };
-
-        // draw the shapes in the terminal
-        draw( sizeof(shapes) / sizeof(Shape *), shapes );
-
-        // wait before drawing the next frame
-        std::this_thread::sleep_for(std::chrono::milliseconds(frameSleep));
-    }
-
-    return 0;  // success
+	//display values to two decimal points
+	cout << fixed << showpoint << setprecision(2);
+	//print out each cylinder's member variables (before operations)
+	cout << "----------------" << endl;
+	cout << "First (Before): " << endl;
+	cout << "----------------" << endl;
+	first_cyl.printSelf();
+	cout << "----------------" << endl;
+	cout << "Second (Before):" << endl;
+	cout << "----------------" << endl;
+	second_cyl.printSelf();
+	cout << "----------------" << endl;
+	cout << "Third (Before): " << endl;
+	cout << "----------------" << endl;
+	third_cyl.printSelf();
+	
+	first_cyl.setHeight(second_cyl.getHeight());
+	first_cyl.setRadius(second_cyl.getRadius());
+	
+	int a = 13,              //testing pointers
+		b = 14;
+	int *pntA = &a,
+		*pntB = &b;
+	
+	third_cyl.setHeight(*pntA);
+	third_cyl.setRadius(*pntB);
+	
+	cout << endl << endl;
+	cout << "----------------" << endl;
+	cout << "First Cylinder" << endl;
+	cout << "----------------" << endl;
+	cout << "Surface Area: " << first_cyl.computeSurfaceArea() << endl;
+	cout << "Volume: " << first_cyl.computeVolume() << endl;
+	cout << "----------------" << endl;
+	cout << "Second Cylinder" << endl;
+	cout << "----------------" << endl;
+	cout << "Surface Area: " << second_cyl.computeSurfaceArea() << endl;
+	cout << "Volume: " << second_cyl.computeVolume() << endl;
+	cout << "----------------" << endl;
+	cout << "Third Cylinder" << endl;
+	cout << "----------------" << endl;
+	cout << "Surface Area: " << third_cyl.computeSurfaceArea() << endl;
+	cout << "Volume: " << third_cyl.computeVolume() << endl;
+	
+	//print out each cylinder's member variables again
+	cout << endl;
+	cout << "----------------" << endl;
+	cout << "First (After): " << endl;
+	cout << "----------------" << endl;
+	first_cyl.printSelf();
+	cout << "----------------" << endl;
+	cout << "Second (After):" << endl;
+	cout << "----------------" << endl;
+	second_cyl.printSelf();
+	cout << "----------------" << endl;
+	cout << "Third (After): " << endl;
+	cout << "----------------" << endl;
+	third_cyl.printSelf();
+	
+	cout << endl;
+	cout << "Leaving scope of class_area (destroying all variables local to this function)" << endl;
 }
-

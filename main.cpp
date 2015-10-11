@@ -7,6 +7,9 @@
 volume of serveral cylinders
 */
 
+/*-------------
+ *  main.cpp
+ *-----------*/
 #include "FCylinder.h"
 
 void class_area();
@@ -93,3 +96,135 @@ void class_area(){
 	cout << endl;
 	cout << "Leaving scope of class_area (destroying all variables local to this function)" << endl;
 }
+
+/*--------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------*/
+/*-------------
+ * FCylinder.h
+ *-----------*/
+ 
+#ifndef FCYLINDER_H
+#define FCYLINDER_H
+
+#include <iostream>
+using std::cout;
+using std::cin;
+using std::endl;
+#include <cmath>
+using std::pow;
+#include <iomanip>
+using std::fixed;
+using std::showpoint;
+using std::setprecision;
+
+const double PI = 3.141592;
+
+class FCylinder{
+	public:
+		FCylinder();
+		FCylinder(double r, double h);
+		FCylinder(const FCylinder& fc);
+		~FCylinder();
+		
+		//setter methods
+		void setRadius(double r);
+		void setHeight(double h);
+		
+		//getter methods
+		double getRadius();
+		double getHeight();
+		
+		//misc. methods
+		double computeSurfaceArea();
+		double computeVolume(); 
+		void printSelf();
+	private:
+		//member variables
+		double radius, 
+			   height;
+};
+
+#endif // FCYLINDER_H
+
+/*--------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------*/
+/*---------------
+ * FCylinder.cpp
+ *-------------*/
+ 
+ #include "FCylinder.h"
+
+//default constructor
+FCylinder::FCylinder()
+{
+	//default initialization
+	radius = height = 1;
+}
+
+//overloaded constructor
+FCylinder::FCylinder(double r, double h)
+{
+	radius = height = 1;
+	setRadius(r);
+	setHeight(h);
+}
+
+//copy constructor
+FCylinder::FCylinder(const FCylinder& fc){
+	radius = fc.radius;
+	height = fc.height;
+}
+
+//deconstructor
+FCylinder::~FCylinder(){
+	cout << "Destroyed a FCylinder." << endl;
+}
+
+//----------------------Getter Methods----------------------//
+//returns radius
+double FCylinder::getRadius(){
+	return radius;
+}
+//returns height
+double FCylinder::getHeight(){
+	return height;
+}
+
+//----------------------Setter Methods----------------------//
+//set radius (as long as r > 0), else keep original
+void FCylinder::setRadius(double r){
+	if (r > 0)
+		radius = r;
+	else
+		cout << "Attempted to assign invalid radius size! Retaining current radius value. " << endl;
+}
+//set height
+void FCylinder::setHeight(double h){
+	if (h > 0)
+		height = h;
+	else
+		cout << "Attempted to assign invalid height! Retaining current height value. " << endl;
+}
+
+//---------------------Misc. Methods------------------------//
+//returns surface area of FCylinder
+double FCylinder::computeSurfaceArea(){
+	return (2 * PI * radius * height) + (2 * PI * pow(radius,2));
+}
+//returns volume of FCylinder
+double FCylinder::computeVolume(){
+	return PI * pow(radius,2) * height;
+}
+//prints member variables
+void FCylinder::printSelf(){
+	cout << "Radius: " << radius << endl;
+	cout << "Height: " << height << endl;
+}
+
+
+
+
+
+
+
+

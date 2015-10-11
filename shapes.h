@@ -7,56 +7,55 @@
  * Classes representing shapes in a Euclidean plane.
  */
 
-#ifndef SHAPES_H
-#define SHAPES_H
-// ----------------------------------------------------------------------------
-
-#include "point.h"
+#ifndef SHAPE_H
+#define SHAPE_H
+#include "Point.h"
 
 class Shape {
-    public:
-        virtual ~Shape() {}
-        virtual bool contains(const Point & p) const = 0;  // pure virtual
+public:
+	virtual bool contains(const Point & p) const = 0;
+	virtual ~Shape() {}
 };
 
-// ----------------------------------------------------------------------------
+
 
 class Rectangle : public Shape {
-    private:
-        Point center;
-        float dx;
-        float dy;
+private:
+	Point startingPoint;
+	double height;
+	double width;
 
-    public:
-        Rectangle(Point center = Point(), float dx = 0, float dy = 0);
+public:
+	Rectangle(Point startingPoint = Point(), double height = 0, double width = 0);
+	//Rectangle();
 
-        bool contains(const Point & p) const;
+	bool contains(const Point & p) const;
 };
-
-class Square : public Rectangle {
-    public:
-        Square(Point center = Point(), float side = 0);
-};
-
-// ----------------------------------------------------------------------------
 
 class Ellipse : public Shape {
-    private:
-        Point f1;
-        Point f2;
-        float radius;
+private:
+	Point focus1;
+	Point focus2;
+	double radius;
 
-    public:
-        Ellipse(Point f1 = Point(), Point f2 = Point(), float radius = 0);
+public:
+	Ellipse(Point focus1 = Point(), Point focus2 = Point(), double radius = 0);
 
-        bool contains(const Point & p) const;
+	bool contains(const Point & p) const;
+
 };
+
+
+class Square : public Rectangle {
+public:
+	Square(Point startingPoint, double sideLength);
+};
+
 
 class Circle : public Ellipse {
-    public:
-        Circle(Point center = Point(), float radius = 0);
+public:
+	Circle(Point center, double radius);
 };
 
-// ----------------------------------------------------------------------------
-#endif  // SHAPES_H
 
+#endif

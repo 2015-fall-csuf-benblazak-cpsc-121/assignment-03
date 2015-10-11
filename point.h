@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
- * Copyright &copy; 2015 Ben Blazak <bblazak@fullerton.edu>
+ * Copyright &copy; 2015 Matthew Kang <matthesk@fullerton.edu>
  * Released under the [MIT License] (http://opensource.org/licenses/MIT)
  * ------------------------------------------------------------------------- */
 
@@ -12,19 +12,22 @@
 // ----------------------------------------------------------------------------
 
 class Point {
-    private:
-        float x;
-        float y;
+private:
+	double x;
+	double y;
 
-    public:
-        Point(float x = 0, float y = 0);
+public:
+	Point(double x = 0, double y = 0);
 
-        float getX() const;
-        float getY() const;
+	double distance(const Point & endpoint) const;
 
-        float distance(const Point & a) const;
+	double getX() const {
+		return x;
+	}
+	double getY() const {
+		return y;
+	}
 };
 
 // ----------------------------------------------------------------------------
 #endif  // POINT_H
-

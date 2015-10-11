@@ -1,99 +1,69 @@
 /* ----------------------------------------------------------------------------
- * Copyright &copy; 2015 Ben Blazak <bblazak@fullerton.edu>
+ * Copyright &copy; 2015 Matthew Kang <matthesk@fullerton.edu>
  * Released under the [MIT License] (http://opensource.org/licenses/MIT)
  * ------------------------------------------------------------------------- */
 
-/**
- * Program to animate some basic shapes moving across the screen in the
- * terminal.
- */
+#include "Point.h"
+#include "Shape.h"
+#include <iostream>
 
 #include <chrono>
 #include <thread>
 
-#include <iostream>
-using std::cin;
-using std::cout;
-using std::endl;
-
-#include "point.h"
-#include "shapes.h"
-
-// ----------------------------------------------------------------------------
-
-/**
- * A function to draw the `Shape`s in `s` in a terminal.
- *
- * Arguments:
- * - `count`: The number of `Shape`s in `s`.
- * - `s`: An array containing pointers to each `Shape` to draw.
- *
- * Notes:
- * - A terminal window is typically 80 columns wide by 25 lines high.
- * - The width:height aspect ratio of a terminal character is approximately
- *   1:1.9.
- */
-void draw(const int count, const Shape * const s[]) {
-    const float xPixels = 80;
-    const float yPixels = 25;
-
-    const float xScale = 1;
-    const float yScale = 1.9;
-
-    for (float yp = 0; yp < yPixels; yp++) {
-        float y = yp * yScale;
-
-        for (float xp = 0; xp < xPixels; xp++) {
-            float x = xp * xScale;
-
-            if (yp == 0 || yp == yPixels-1) {
-                cout << "-";
-                continue;
-            }
-
-            if (xp == 0 || xp == xPixels-1) {
-                cout << "|";
-                continue;
-            }
-
-            bool includePoint = false;
-            for (int c = 0; c < count; c++)
-                if (s[c]->contains(Point(x,y)))
-                    includePoint = true;
-
-            if (includePoint)
-                cout << "*";
-            else
-                cout << " ";
-        }
-        cout << endl;
-    }
-}
-
-// ----------------------------------------------------------------------------
-
 int main() {
-    const int frames = 40;
-    const int frameSleep = 70;  // milliseconds
 
-    // for each frame
-    for (float f = 0; f < frames; f++) {
-        // create some shapes
-        Rectangle r( Point(5+f,5), 2, 8 );
-        Square    s( Point(50-(f/2),5+(f/2)), 7 );
-        Ellipse   e( Point(10-(f/3),35+(f/3)), Point(25-(f/3),35+(f/3)), 22+f );
-        Circle    c( Point(50+(f/5),35), 15 );
+	const int frames = 50;
+	const int frameSleep = 70;  //units of milliseconds
 
-        // put pointers to them in an array
-        Shape * shapes[] = { &r, &s, &e, &c, };
+	for (double f = 0; f < frames; f++) {
 
-        // draw the shapes in the terminal
-        draw( sizeof(shapes) / sizeof(Shape *), shapes );
+		void draw(const int count, const Shape * const s[]);
 
-        // wait before drawing the next frame
-        std::this_thread::sleep_for(std::chrono::milliseconds(frameSleep));
-    }
+		Ellipse e(Point(20 + f/4, 15 + f/4), Point(30 + f/4, 15 + f/4), 30);
+		Rectangle r(Point(10 + f, 10 + f/2), 5, 10);
+		Circle c(Point(5 + f, 5 + f / 4), 4);
+		Square s(Point(50 - f / 2, 20 - f / 3), 6);
 
-    return 0;  // success
+		Shape * shapes[] = { &r, &e };
+
+		draw(sizeof(shapes) / sizeof(Shape *), shapes);
+
+		std::this_thread::sleep_for(std::chrono::milliseconds(frameSleep));
+	}
+
+	return 0;
 }
 
+void draw(const int count, const Shape * const s[]) {
+	const int xPixel = 80;
+	const int yPixel = 25;
+
+	const double xScale = 1;
+	const double yScale = 1.9;
+
+
+	for (double yUnscaled = 0; yUnscaled < yPixel; yUnscaled++) {
+		double y = yUnscaled * yScale;
+
+		for (double xUnscaled = 0; xUnscaled < xPixel; xUnscaled++) {
+			double x = xUnscaled * xScale;
+
+			bool includePoint = false;
+			for (int c = 0; c < count; c++) {
+				if ((*s[c]).contains(Point(x, y))) {
+					includePoint = true;
+				}
+				if (includePoint) {
+					std::cout << "*";
+				}
+				else {
+					std::cout << " ";
+				}
+			}
+
+
+
+
+		}
+	}
+}

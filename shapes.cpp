@@ -1,37 +1,52 @@
 /* ----------------------------------------------------------------------------
- * Copyright &copy; 2015 Ben Blazak <bblazak@fullerton.edu>
+ * Copyright &copy; 2015 Matthew Kang <matthesk@fullerton.edu>
  * Released under the [MIT License] (http://opensource.org/licenses/MIT)
  * ------------------------------------------------------------------------- */
 
-#include <cmath>
-using std::abs;
+#include "Shape.h"
+#include "Point.h"
 
-#include "shapes.h"
+#include <iostream>
 
-// ----------------------------------------------------------------------------
+Rectangle::Rectangle(Point startingPoint, double height, double width) : startingPoint(startingPoint), height(height), width(width) {}
 
-Rectangle::Rectangle(Point center, float dx, float dy) : center(center),
-                                                         dx(dx),
-                                                         dy(dy) {}
 
 bool Rectangle::contains(const Point & p) const {
-    return    abs( p.getX() - center.getX() ) <= dx
-           && abs( p.getY() - center.getY() ) <= dy;
+
+
+
+	double xRangeStart = startingPoint.getX();
+	double xRangeEnd = startingPoint.getX() + width;
+	double yRangeStart = startingPoint.getY();
+	double yRangeEnd = startingPoint.getY() + height;
+
+	
+	if (p.getX() >= xRangeStart &&
+	p.getX() <= xRangeEnd &&
+	p.getY() >= yRangeStart &&
+	p.getY() <= yRangeEnd) {
+	return true;
+	}
+	else {
+	return false;
+	}
 }
 
-Square::Square(Point center, float side)
-    : Rectangle(center, side/2, side/2) {}
 
-// ----------------------------------------------------------------------------
 
-Ellipse::Ellipse(Point f1, Point f2, float radius) : f1(f1),
-                                                     f2(f2),
-                                                     radius(radius) {}
+Ellipse::Ellipse(Point focus1, Point focus2, double radius) : focus1(focus1), focus2(focus2), radius(radius) {}
 
 bool Ellipse::contains(const Point & p) const {
-    return p.distance(f1) + p.distance(f2) <= radius;
+	return ((p.distance(focus1) + p.distance(focus2)) <= radius);
 }
 
-Circle::Circle(Point center, float radius)
-    : Ellipse(center, center, radius) {}
+
+
+
+Square::Square(Point start, double l) : Rectangle(start, l, l) {}
+
+Circle::Circle(Point c, double r) : Ellipse(c, c, r) {}
+
+
+
 

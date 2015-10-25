@@ -1,12 +1,13 @@
 /* ----------------------------------------------------------------------------
- * Copyright &copy; 2015 Ben Blazak <bblazak@fullerton.edu>
- * Released under the [MIT License] (http://opensource.org/licenses/MIT)
- * ------------------------------------------------------------------------- */
+* Copyright &copy; 2015 Ben Blazak <bblazak@fullerton.edu>
+*                       Gabriel Martinez <1212gmartinz@su.fullerton.edu>
+* Released under the [MIT License] (http://opensource.org/licenses/MIT)
+* ------------------------------------------------------------------------- */
 
 /**
- * Program to animate some basic shapes moving across the screen in the
- * terminal.
- */
+* A program for displaying moving shapes in the terminal window
+* using the euclidian plane.
+*/
 
 #include <chrono>
 #include <thread>
@@ -73,8 +74,8 @@ void draw(const int count, const Shape * const s[]) {
 // ----------------------------------------------------------------------------
 
 int main() {
-    const int frames = 40;
-    const int frameSleep = 70;  // milliseconds
+    const int frames =120;
+    const int frameSleep = 100;  // milliseconds
 
     // for each frame
     for (float f = 0; f < frames; f++) {
@@ -82,7 +83,7 @@ int main() {
         Rectangle r( Point(5+f,5), 2, 8 );
         Square    s( Point(50-(f/2),5+(f/2)), 7 );
         Ellipse   e( Point(10-(f/3),35+(f/3)), Point(25-(f/3),35+(f/3)), 22+f );
-        Circle    c( Point(50+(f/5),35), 15 );
+        Circle    c( Point(50+(f/4),35), 15 );
 
         // put pointers to them in an array
         Shape * shapes[] = { &r, &s, &e, &c, };
@@ -96,4 +97,3 @@ int main() {
 
     return 0;  // success
 }
-

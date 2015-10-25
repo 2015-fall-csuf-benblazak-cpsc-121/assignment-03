@@ -1,7 +1,9 @@
 /* ----------------------------------------------------------------------------
- * Copyright &copy; 2015 Ben Blazak <bblazak@fullerton.edu>
- * Released under the [MIT License] (http://opensource.org/licenses/MIT)
- * ------------------------------------------------------------------------- */
+* Copyright &copy; 2015 Ben Blazak <bblazak@fullerton.edu>
+*                       Gabriel Martinez <1212gmartinz@su.fullerton.edu>
+* Released under the [MIT License] (http://opensource.org/licenses/MIT)
+* ------------------------------------------------------------------------- */
+
 
 #include <cmath>
 using std::pow;
@@ -17,6 +19,5 @@ float Point::getX() const { return x; }
 float Point::getY() const { return y; }
 
 float Point::distance(const Point & a) const {
-    return sqrt( pow( a.x - this->x, 2 ) + pow( a.y - this->y, 2 ) );
+	return sqrt(pow(a.x - this->x, 2) + pow(a.y - this->y, 2));
 }
-
